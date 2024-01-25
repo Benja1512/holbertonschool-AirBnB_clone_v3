@@ -33,8 +33,18 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
+            """Return a dictionary of objects."""
+            if cls:
+                return {obj.id: obj for obj in self.__session.query(cls).all()}
+            else:
+                all_objects = {}
+                for table in self.__tables:
+                    all_objects.update({obj.id: obj for obj in self.__session.query(table).all()})
+                return all_objects
+
+
         """Query the current session and list all instances of cls
-        """
+        
         result = {}
         if cls:
             for row in self.__session.query(cls).all():
@@ -49,7 +59,7 @@ class DBStorage:
                     row.to_dict()
                     result.update({key: row})
         return result
-
+"""
     def rollback(self):
         """rollback changes
         """
