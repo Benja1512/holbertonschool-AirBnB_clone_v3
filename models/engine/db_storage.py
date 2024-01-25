@@ -83,3 +83,18 @@ class DBStorage:
         """Dispose of the current Session, if present.
         """
         self.__session.close()
+
+    def get(self, cls, id):
+        """Retrieve one object based on class and ID."""
+        query = self.__session.query(cls).filter_by(id=id).first()
+        return query if query else None
+
+    def count(self, cls=None):
+        """Count the number of objects in storage."""
+        if cls:
+            return self.__session.query(cls).count()
+        else:
+            total_count = 0
+            for table in self.__tables:
+                total_count += self.__session.query(table).count()
+            return total_count
