@@ -1,0 +1,8 @@
+this is reviewing of a friend "joshua"
+    Questions about the code, if something is difficult to understand.
+    Style issues.
+    Error handling.
+    Duplicate code.
+    Potential bugs.
+    Potential efficiency issues.
+    Typographical errors.
